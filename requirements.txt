@@ -1,9 +1,12 @@
 asgiref
 crispy-tailwind
+dj-database-url
 Django
 django-crispy-forms
 django-environ
 pillow
 psycopg2
+psycopg2-binary
 sqlparse
+typing_extensions
 tzdata
