@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}
+<title>Library Management System</title>
+{% endblock %}
+
+{% block body %}
+{% include 'messages.html'%}
+<div class="flex flex-col lg:flex-row lg:space-x-6 p-5">
+    <div class="lg:w-1/2 w-full flex justify-center mb-6 lg:mb-0">
+        <img src="{{book_details.image.url}}" alt="" class="w-80 h-auto object-cover">
+    </div>
+
+    <div class="lg:w-1/2 w-full p-5">
+        <h2 class="text-2xl font-bold mb-2">Name: {{book_details.book_name}}</h2>
+        <hr class="my-4">
+        <h5 class="text-lg mb-4">Description: {{book_details.description}}</h5>
+        <hr class="my-4">
+        <h5 class="text-lg mb-4">Category: 
+            <button class="bg-green-500 text-white py-2 px-4 rounded" disabled>
+                <b>{{book_details.category}}</b>
+            </button>
+        </h5>
+        <hr class="my-4">
+        <h5 class="text-dark-600 text-lg mb-4">Borrowed Book Quantity: {{ book_details.borrow_book_quantity }}</h5>
+        {% if book_details.book_quantity >= 1 %}
+        <h5 class="text-dark-600 text-lg mb-4">Book Quantity: {{book_details.book_quantity}}</h5>
+        {% else %}
+        <h5 class="text-red-600 text-lg mb-4">Out of Stock</h6>
+        {% endif %}
+        <h5 class="text-red-600 text-lg mb-4">Borrow Price: {{book_details.borrow_price}}$</h5>
+        <hr class="my-4">
+        {% if user.is_authenticated %}
+        <div class="mt-4 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+          <form method="post" action="{% url 'return' book_details.id %}" class="flex-1">
+              {% csrf_token %}
+              <button class="w-full bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-3 rounded-md shadow-md transition duration-300 ease-in-out">
+                  Return
+              </button>
+          </form>
+
+
+          <form method="post" action="{% url 'book_borrow' book_details.id %}" class="flex-1">
+              {% csrf_token %}
+              <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 rounded-md shadow-md transition duration-300 ease-in-out">
+                  Borrow
+              </button>
+          </form>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Show comments -->
+<div class="w-3/4 mx-auto mt-8">
+    <div class="bg-white shadow-lg rounded-lg p-5">
+      <h4 class="text-xl font-semibold mb-4">Total Reviews: {{comments | length}}</h4>
+      {% for cmnt in comments %}
+      <hr class="my-4">
+      <div class="p-4 border border-gray-200 rounded-lg">
+        <p class="font-semibold">{{cmnt.user}} <span class="text-gray-500 text-sm">{{cmnt.date}}</span></p>
+        <p class="mt-2">{{cmnt.comment_body}}</p>
+      </div>
+      <hr class="my-4">
+      {% endfor %}
+    </div>
+</div>
+
+<!-- Comment form -->
+{% if user.is_authenticated %}
+<div class="w-3/4 mx-auto mt-8">
+  <h4 class="text-xl font-semibold mb-4">Add your Review...</h4>
+  <div class="bg-white shadow-lg rounded-lg p-5">
+    <form method="post">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="id_comment_body" class="block text-gray-700 text-sm font-bold mb-2">Comment:</label>
+        <textarea id="id_comment_body" name="comment_body" rows="4" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required></textarea>
+      </div>
+      <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600 mt-4">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

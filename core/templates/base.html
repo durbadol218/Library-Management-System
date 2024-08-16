@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block head_title %}{% endblock %}</title>
+    <link href="https://unpkg.com/tailwindcss@2.0.1/dist/tailwind.min.css" rel="stylesheet"/>
+</head>
+<body class="bg-indigo-200">
+    {% include 'navbar.html' %}
+    <main>
+        {% block body %}
+        <div class="lg:container lg:mx-auto" id="main">
+            {% include 'messages.html'%}
+            {% block content %}
+            {% endblock %}
+        </div>
+    </main>
+    {% endblock %}
+</body>
+</html>
