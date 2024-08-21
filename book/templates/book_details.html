@@ -57,7 +57,7 @@
       {% for cmnt in comments %}
       <hr class="my-4">
       <div class="p-4 border border-gray-200 rounded-lg">
-        <p class="font-semibold">{{cmnt.user}} <span class="text-gray-500 text-sm">{{cmnt.date}}</span></p>
+        <p class="font-semibold"><span class="text-gray-500 text-sm">{{cmnt.date}}</span></p>
         <p class="mt-2">{{cmnt.comment_body}}</p>
       </div>
       <hr class="my-4">
@@ -67,6 +67,7 @@
 
 <!-- Comment form -->
 {% if user.is_authenticated %}
+{% if flag %}
 <div class="w-3/4 mx-auto mt-8">
   <h4 class="text-xl font-semibold mb-4">Add your Review...</h4>
   <div class="bg-white shadow-lg rounded-lg p-5">
@@ -82,5 +83,12 @@
     </form>
   </div>
 </div>
+{% else %}
+<div class="bg-white">
+<p class="text-center" style="color: red; font-weight: bold; margin-top: 20px;">
+  You must borrow this book before you can submit a review.
+</p>
+</div>
+{% endif %}
 {% endif %}
 {% endblock %}

@@ -42,9 +42,9 @@ class ReturnModel(models.Model):
         return f'{self.book} returned by {self.user}'
 
 class CommentModel(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True, blank=True)
     book = models.ForeignKey(BookModel, on_delete=models.CASCADE, related_name='comment')
     name = models.CharField(max_length=30)
-    email = models.EmailField(unique=True, )
     comment_body = models.TextField(null=True, blank=True)
     date = models.DateTimeField(auto_now=True)
 
