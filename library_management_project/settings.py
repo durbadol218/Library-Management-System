@@ -109,7 +109,8 @@ SECRET_KEY = env("SECRET_KEY")
 DATABASES = {
     'default': dj_database_url.config(
         # Replace this value with your local database's connection string.
-        default='postgresql://librarymanagementsytem_user:zbeeuX44dwoKM9vMgr26MBXb3jNAop5i@dpg-cqvcb4tsvqrc73c08gh0-a.oregon-postgres.render.com/librarymanagementsytem',
+        default='postgresql://library_management_keri_user:UnRKr3Qz8gidRZ7dyT0UagRVGcZs3Vaz@dpg-cs69vha3esus73b7ldjg-a.oregon-postgres.render.com/library_management_keri',
+        # default='postgresql://librarymanagementsytem_user:zbeeuX44dwoKM9vMgr26MBXb3jNAop5i@dpg-cqvcb4tsvqrc73c08gh0-a.oregon-postgres.render.com/librarymanagementsytem',
     )
 }
 
